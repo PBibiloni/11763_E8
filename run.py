@@ -112,4 +112,4 @@ if __name__ == '__main__':
                 name_first_method=first_method,
                 name_second_method=second_method)
             pvalue, first_is_superior = hypothesis_testing(first_measures, second_measures)
-            log.info(f'Comparing methods {first_method} and {second_method}: pvalue={pvalue:.03f}; first method is statistically superior? {first_is_superior}.')
+            log.info(f'Method {first_method} is statistically superior to method {second_method}? {first_is_superior} (pvalue={pvalue:.03f}).')
