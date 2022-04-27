@@ -38,34 +38,31 @@ def performance_metrics(img_gt, img_segmentation):
 
 
 def compute_all_measures(gt_method_name, name_first_method, name_second_method):
-    # Task 2.1: Hypothesis testing: compute measures.
     images_gt = [_load_image(gt_method_name, idx) for idx in range(1, 21)]
     images_first_method = [_load_image(name_first_method, idx) for idx in range(1, 21)]
     images_second_method = [_load_image(name_second_method, idx) for idx in range(1, 21)]
     log.info('Task 2.1: Compute ONE performance measure to compare methods with.')
-    # SOLUTION 2
-    list_indicators_first_method = [
-        performance_metrics(gt, segm)[2]
-        for gt, segm in zip(images_gt, images_first_method)
-    ]
-    list_indicators_second_method = [
-        performance_metrics(gt, segm)[2]
-        for gt, segm in zip(images_gt, images_second_method)
-    ]
+    # YOUR CODE HERE
+    # ...
+    list_indicators_first_method = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    list_indicators_second_method = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    # ...
 
     # Return
     return list_indicators_first_method, list_indicators_second_method
 
 
 def hypothesis_testing(list_indicators_first_method, list_indicators_second_method):
-    # Task 2.2: Hypothesis testing: perform test.
+    log.info('Task 2.2: Perform hypothesis testing.')
     series_A = pd.Series(list_indicators_first_method)
     series_B = pd.Series(list_indicators_second_method)
     # Import some interesting hypothesis tests
     from scipy.stats import ttest_1samp, ttest_ind, ttest_rel, wilcoxon, bartlett, kstest, shapiro
-    # SOLUTION 2: paired samples, no normality assumed, one-tailed
-    _, pvalue = wilcoxon(series_A, series_B, alternative='greater')
-    first_method_is_statistically_superior = pvalue < 0.05
+    # YOUR CODE HERE
+    # ...
+    pvalue = 0
+    first_method_is_statistically_superior = False
+    # ...
 
     # Return
     return pvalue, first_method_is_statistically_superior
