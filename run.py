@@ -92,11 +92,15 @@ if __name__ == '__main__':
     segmentation = _load_image('Results - 2015 Chowdhury', 1)
 
     # Evaluate task 1.1
-    tp, tn, fp, fn = errors
+    tp, tn, fp, fn = errors(
+        img_gt=gt,
+        img_segmentation=segmentation)
     log.info(f'Errors: TP={tp}, TN={tn}, FP={fp}, FN={fn}.')
 
     # Evaluate task 1.2
-    sen, spe, f1 = errors
+    sen, spe, f1 = performance_metrics(
+        img_gt=gt,
+        img_segmentation=segmentation)
     log.info(f'Errors: Sensitivity={sen}, Specificity={spe}, F1 score={f1}.')
 
     # Evaluate task 2
