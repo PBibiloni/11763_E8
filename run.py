@@ -10,28 +10,31 @@ log = logging.getLogger(__name__)
 
 def errors(img_gt, img_segmentation):
     # Task 1.1: Find true positives/negatives, false positives/negatives.
-    # SOLUTION
+    log.info('Task 1.1: Find true positives/negatives, false positives/negatives.')
     img_gt = img_gt.astype('bool')
     if img_segmentation.ndim == 3:
         img_segmentation = img_segmentation.sum(axis=2)
     img_segmentation = img_segmentation.astype('bool')
-    true_positives = (img_gt & img_segmentation).sum()
-    true_negatives = (~img_gt & ~img_segmentation).sum()
-    false_positives = (~img_gt & img_segmentation).sum()
-    false_negatives = (img_gt & ~img_segmentation).sum()
+    # YOUR CODE HERE
+    # ...
+    true_positives = 0
+    true_negatives = 0
+    false_positives = 0
+    false_negatives = 0
+    # ...
 
     # Return
     return true_positives, true_negatives, false_positives, false_negatives
 
 
 def performance_metrics(img_gt, img_segmentation):
-    # Task 1.2: Compute sensitivity, specificity, f1_score.
-    # SOLUTION
-    tp, tn, fp, fn = errors(img_gt=img_gt, img_segmentation=img_segmentation)
-    sensitivity = tp/(tp+fn)
-    specificity = tn/(tn+fp)
-    precision = tp/(tp+fp) if (tp+fp) != 0 else 1
-    f1_score = 2 * precision * sensitivity / (precision+sensitivity)
+    log.info('Task 1.2: Compute sensitivity, specificity, f1_score.')
+    # YOUR CODE HERE
+    # ...
+    sensitivity = 0
+    specificity = 0
+    f1_score = 0
+    # ...
 
     # Return
     return sensitivity, specificity, f1_score
