@@ -4,18 +4,19 @@ import os
 from skimage.io import imread
 import pandas as pd
 
+logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
 
 
 def errors(img_gt, img_segmentation):
     log.info('Task 1.1: Find true positives/negatives, false positives/negatives.')
-    # YOUR CODE HERE
-    # ...
-    true_positives = 0
-    true_negatives = 0
-    false_positives = 0
-    false_negatives = 0
-    # ...
+    # SOLUTION
+    img_gt = img_gt.astype('bool')
+    img_segmentation = img_segmentation.astype('bool')
+    true_positives = (img_gt & img_segmentation).sum()
+    true_negatives = (~img_gt & ~img_segmentation).sum()
+    false_positives = (~img_gt & img_segmentation).sum()
+    false_negatives = (img_gt & ~img_segmentation).sum()
 
     # Return
     return true_positives, true_negatives, false_positives, false_negatives
@@ -23,12 +24,12 @@ def errors(img_gt, img_segmentation):
 
 def performance_metrics(img_gt, img_segmentation):
     log.info('Task 1.2: Compute sensitivity, specificity, f1_score.')
-    # YOUR CODE HERE
-    # ...
-    sensitivity = 0
-    specificity = 0
-    f1_score = 0
-    # ...
+    # SOLUTION
+    tp, tn, fp, fn = errors(img_gt=img_gt, img_segmentation=img_segmentation)
+    sensitivity = tp/(tp+fn)
+    specificity = tn/(tn+fp)
+    precision = tp/(tp+fp)
+    f1_score = 2 * precision * sensitivity / (precision+sensitivity)
 
     # Return
     return sensitivity, specificity, f1_score
@@ -95,13 +96,13 @@ if __name__ == '__main__':
     tp, tn, fp, fn = errors(
         img_gt=gt,
         img_segmentation=segmentation)
-    log.info(f'Errors: TP={tp}, TN={tn}, FP={fp}, FN={fn}.')
+    log.info(f'Errors: TP={tp:d}, TN={tn:d}, FP={fp:d}, FN={fn:d}.')
 
     # Evaluate task 1.2
     sen, spe, f1 = performance_metrics(
         img_gt=gt,
         img_segmentation=segmentation)
-    log.info(f'Errors: Sensitivity={sen}, Specificity={spe}, F1 score={f1}.')
+    log.info(f'Errors: Sensitivity={sen:.02%}, Specificity={spe:.02%}, F1 score={f1:.02%}.')
 
     # Evaluate task 2
     for first_method in AVAILABLE_METHODS:
